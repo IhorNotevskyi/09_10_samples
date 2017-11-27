@@ -8,7 +8,17 @@
  */
 function getArrayValue(array $array, $key, $default = null)
 {
-    return array_key_exists($key, $array) ? $array[$key] : $default;
+    $parts = explode('.', $key);
+
+    foreach ($parts as $part) {
+        if (is_array($array) && array_key_exists($part, $array)) {
+            $array = $array[$part];
+        } else {
+            return $default;
+        }
+    }
+
+    return $array;
 }
 
 /**
@@ -19,5 +29,6 @@ function getArrayValue(array $array, $key, $default = null)
 function getFromConfig($key, $default = null)
 {
     global $config;
+
     return getArrayValue($config, $key, $default);
 }
