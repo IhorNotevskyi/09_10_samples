@@ -30,6 +30,9 @@ $success = getFlash('success');
                 <li class="nav-item">
                     <a class="nav-link" href="/categories/list">Categories</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/products/list">Products</a>
+                </li>
             </ul>
         </nav>
         <h3 class="text-muted">0910 Shop</h3>
