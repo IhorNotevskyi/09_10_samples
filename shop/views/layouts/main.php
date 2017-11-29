@@ -1,3 +1,9 @@
+<?php
+
+$error = getFlash('error');
+$success = getFlash('success');
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -30,6 +36,13 @@
     </header>
 
     <main role="main">
+
+        <?php if ($error) : ?>
+            <p class="alert alert-danger"><?= $error ?></p>
+        <?php endif; ?>
+        <?php if ($success) : ?>
+            <p class="alert alert-success"><?= $success ?></p>
+        <?php endif; ?>
 
         <?= $content ?>
 

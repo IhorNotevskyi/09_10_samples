@@ -40,7 +40,7 @@ $migrations = array_filter(scandir($migrationsDir), function ($item) use ($execu
     return !in_array($item, array_merge(['.', '..'], $executedMigrations));
 });
 
-if (empty($migration)) {
+if (empty($migrations)) {
     die("Database is up to date\r\n");
 }
 
@@ -54,6 +54,7 @@ foreach ($migrations as $migration) {
         mysqli_query(getDbConnection(), $sql);
         echo "Migration {$migration} executed successfully\r\n";
     } else {
+        echo mysqli_error(getDbConnection()) . PHP_EOL;
         die("Migration {$migration} can not be executed\r\n");
     }
 }
