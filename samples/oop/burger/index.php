@@ -15,18 +15,18 @@ require_once __DIR__ . '/VoloskovePole.php';
 
 require_once __DIR__ . '/Sandwich.php';
 
-$tvorogCheese = new Tvorog();
 $bread = new Borobinsky();
 $butter = new VoloskovePole();
 
-$sandwich = new Sandwich();
-
-$sandwich->setBread($bread);
-$sandwich->setButter($butter);
-$sandwich->setCheese($tvorogCheese);
-
+$tvorogCheese = new Tvorog();
 $gollandianCheese = new Gollandian();
-$sandwich2 = clone $sandwich;
-$sandwich2->setCheese($gollandianCheese);
 
-echo $sandwich->create(), '<br><br>', $sandwich2->create();
+$sandwich = new Sandwich($bread, $butter, $tvorogCheese);
+$sandwich2 = clone $sandwich;
+$sandwich2->__construct($bread, $butter, $gollandianCheese);
+
+$sandwich3 = new Sandwich($bread, $butter, $gollandianCheese);
+
+unset($sandwich3);
+
+echo $sandwich->create(), $sandwich2->create();

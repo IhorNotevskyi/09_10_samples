@@ -17,18 +17,16 @@ class Sandwich
      */
     private $butter;
 
-    public function setBread(Bread $bread)
+    /**
+     * Sandwich constructor.
+     * @param Bread $bread
+     * @param Butter $butter
+     * @param Cheese $cheese
+     */
+    public function __construct(Bread $bread, Butter $butter, Cheese $cheese)
     {
         $this->bread = $bread;
-    }
-
-    public function setButter(Butter $butter)
-    {
         $this->butter = $butter;
-    }
-
-    public function setCheese(Cheese $cheese)
-    {
         $this->cheese = $cheese;
     }
 
@@ -38,6 +36,11 @@ class Sandwich
         $butter = $this->butter->getALittle();
         $cheese = $this->cheese->getAPart();
 
-        return "Sandwich with {$bread},<br>{$butter} and<br>{$cheese}";
+        return "Sandwich with {$bread},<br>{$butter} and<br>{$cheese}<br><br>";
+    }
+
+    public function __destruct()
+    {
+        echo spl_object_hash($this), ': Kitchen is closed<br>';
     }
 }
