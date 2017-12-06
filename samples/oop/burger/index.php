@@ -2,6 +2,8 @@
 
 error_reporting(E_ALL);
 
+require_once __DIR__ . '/BurgerComponent.php';
+
 require_once __DIR__ . '/Cheese.php';
 require_once __DIR__ . '/Gollandian.php';
 require_once __DIR__ . '/Russian.php';

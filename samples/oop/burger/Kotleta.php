@@ -1,6 +1,6 @@
 <?php
 
-class Kotleta
+abstract class Kotleta extends BurgerComponent
 {
     /**
      * @var string
@@ -12,6 +12,6 @@ class Kotleta
      */
     public function getOne()
     {
-        return "Kotleta with {$this->meet} meet";
+        return "Kotleta with {$this->meet} [{$this->className()}] meet";
     }
 }

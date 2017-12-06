@@ -7,6 +7,6 @@ class Tvorog extends Cheese
 
     public function getAPart()
     {
-        return "Gorka of {$this->name} ({$this->fat}%) cheese";
+        return "Gorka of {$this->name} ({$this->fat}%) [{$this->className()}] cheese";
     }
 }
