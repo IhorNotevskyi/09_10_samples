@@ -13,7 +13,11 @@ require_once __DIR__ . '/Borobinsky.php';
 require_once __DIR__ . '/Butter.php';
 require_once __DIR__ . '/VoloskovePole.php';
 
+require_once __DIR__ . '/Kotleta.php';
+require_once __DIR__ . '/PigKotleta.php';
+
 require_once __DIR__ . '/Sandwich.php';
+require_once __DIR__ . '/Gamburger.php';
 
 $bread = new Borobinsky();
 $butter = new VoloskovePole();
@@ -25,8 +29,7 @@ $sandwich = new Sandwich($bread, $butter, $tvorogCheese);
 $sandwich2 = clone $sandwich;
 $sandwich2->__construct($bread, $butter, $gollandianCheese);
 
-$sandwich3 = new Sandwich($bread, $butter, $gollandianCheese);
+$kotleta = new PigKotleta();
+$gamburger = new Gamburger($bread, $butter, $gollandianCheese, $kotleta);
 
-unset($sandwich3);
-
-echo $sandwich->create(), $sandwich2->create();
+echo $sandwich->create(), $gamburger->create();
