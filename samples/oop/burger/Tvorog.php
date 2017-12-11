@@ -1,6 +1,6 @@
 <?php
 
-class Tvorog extends Cheese
+class Tvorog extends Cheese implements FreeFlowingInterface, FattyInterface
 {
     protected $name = 'Tvorog';
     protected $fat = '30';
@@ -8,5 +8,15 @@ class Tvorog extends Cheese
     public function getAPart()
     {
         return "Gorka of {$this->name} ({$this->fat}%) [{$this->className()}] cheese";
+    }
+
+    public function getFlowingSpeed()
+    {
+        return '10 pieces / 1 sec';
+    }
+
+    public function getNoise()
+    {
+        return 'ssssssssssss';
     }
 }

@@ -39,6 +39,9 @@ class Sandwich
         $this->components[] = $component;
     }
 
+    /**
+     * @return string
+     */
     public function create()
     {
         $components = [];
