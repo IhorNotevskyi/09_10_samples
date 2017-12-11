@@ -10,7 +10,7 @@ abstract class Kotleta extends BurgerComponent
     /**
      * @return string
      */
-    public function getOne()
+    public function getAPart()
     {
         return "Kotleta with {$this->meet} [{$this->className()}] meet";
     }

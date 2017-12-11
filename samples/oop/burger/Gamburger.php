@@ -19,7 +19,7 @@ class Gamburger extends Sandwich
         $sandwich = parent::create();
         return vsprintf('%s and <br>%s<br><br>', [
             substr($sandwich, 0, -8),
-            $this->kotleta->getOne()
+            $this->kotleta->getAPart()
         ]);
     }
 }

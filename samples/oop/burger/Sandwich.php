@@ -8,19 +8,9 @@ class Sandwich
     private static $counter = 0;
 
     /**
-     * @var Bread
+     * @var BurgerComponent[]
      */
-    private $bread;
-
-    /**
-     * @var Cheese
-     */
-    private $cheese;
-
-    /**
-     * @var Butter
-     */
-    private $butter;
+    private $components = [];
 
     /**
      * @var int
@@ -29,27 +19,35 @@ class Sandwich
 
     /**
      * Sandwich constructor.
-     * @param Bread $bread
-     * @param Butter $butter
-     * @param Cheese $cheese
+     * @param array ...$components
      */
-    public function __construct(Bread $bread, Butter $butter, Cheese $cheese)
+    public function __construct(...$components)
     {
         self::$counter++;
         $this->id = self::$counter;
 
-        $this->bread = $bread;
-        $this->butter = $butter;
-        $this->cheese = $cheese;
+        foreach ($components as $component) {
+            $this->addComponent($component);
+        }
+    }
+
+    /**
+     * @param BurgerComponent $component
+     */
+    private function addComponent(BurgerComponent $component)
+    {
+        $this->components[] = $component;
     }
 
     public function create()
     {
-        $bread = $this->bread->getAPart();
-        $butter = $this->butter->getALittle();
-        $cheese = $this->cheese->getAPart();
+        $components = [];
+        foreach ($this->components as $component) {
+            $components[] = $component->getAPart();
+        }
+        $components = implode(',<br>', $components);
 
-        return "Sandwich with {$bread},<br>{$butter} and<br>{$cheese}<br><br>";
+        return "<b>Sandwich with</b><br>{$components}<br><br>";
     }
 
     /**

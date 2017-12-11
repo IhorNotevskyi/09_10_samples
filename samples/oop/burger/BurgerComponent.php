@@ -12,4 +12,6 @@ abstract class BurgerComponent
     {
         return self::class;
     }
+
+    abstract public function getAPart();
 }

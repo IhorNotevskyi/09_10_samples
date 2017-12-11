@@ -26,12 +26,8 @@ $butter = new VoloskovePole();
 
 $tvorogCheese = new Tvorog();
 $gollandianCheese = new Gollandian();
+$russianCheese = new Russian();
 
-$sandwich = new Sandwich($bread, $butter, $tvorogCheese);
-$sandwich2 = clone $sandwich;
-$sandwich2->__construct($bread, $butter, $gollandianCheese);
+$sandwich = new Sandwich($russianCheese, $bread, $butter, $tvorogCheese, $gollandianCheese);
 
-$kotleta = new PigKotleta();
-$gamburger = new Gamburger($bread, $butter, $gollandianCheese, $kotleta);
-
-echo $sandwich->create(), $gamburger->create();
+echo $sandwich->create();
