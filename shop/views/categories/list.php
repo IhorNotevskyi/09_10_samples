@@ -20,8 +20,8 @@
             <td><?= $category['title'] ?></td>
             <td></td>
             <td>
-                <a href="/categories/update" class="btn btn-sm btn-primary">Edit</a>
-                <a href="/categories/delete" class="btn btn-sm btn-danger">Delete</a>
+                <a href="/categories/update?id=<?= $category['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
+                <a href="/categories/delete?id=<?= $category['id'] ?>" class="btn btn-sm btn-danger">Delete</a>
             </td>
         </tr>
     <?php endforeach; ?>

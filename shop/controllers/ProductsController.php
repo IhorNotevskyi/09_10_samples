@@ -36,6 +36,7 @@ function actionCreate()
                 }
 
                 $relationBindResult = mysqli_stmt_bind_param($relationStatement, 'ii', $productId, $categoryId);
+                mysqli_stmt_execute($relationStatement);
                 if (!$relationBindResult) {
                     die(mysqli_stmt_error($relationBindResult));
                 }
