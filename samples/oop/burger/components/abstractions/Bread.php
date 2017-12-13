@@ -1,5 +1,7 @@
 <?php
 
+namespace components\abstractions;
+
 abstract class Bread extends BurgerComponent
 {
     protected $name;

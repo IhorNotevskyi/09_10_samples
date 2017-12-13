@@ -1,5 +1,7 @@
 <?php
 
+namespace components\abstractions;
+
 abstract class BurgerComponent
 {
     public function className()

@@ -1,5 +1,7 @@
 <?php
 
+use components\abstractions\BurgerComponent;
+
 class Sandwich
 {
     /**

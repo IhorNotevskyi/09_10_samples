@@ -1,5 +1,11 @@
 <?php
 
+namespace components;
+
+use components\abstractions\Cheese;
+use properties\FattyInterface;
+use properties\FreeFlowingInterface;
+
 class Tvorog extends Cheese implements FreeFlowingInterface, FattyInterface
 {
     protected $name = 'Tvorog';

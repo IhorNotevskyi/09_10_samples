@@ -1,5 +1,7 @@
 <?php
 
+namespace components\abstractions;
+
 abstract class Kotleta extends BurgerComponent
 {
     /**
