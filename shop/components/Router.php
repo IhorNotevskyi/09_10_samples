@@ -9,15 +9,15 @@ namespace components;
 class Router
 {
     /**
-     * @var Dispatcher
+     * @var AbstractDispatcher
      */
     private $dispatcher;
 
     /**
      * Router constructor.
-     * @param Dispatcher $dispatcher
+     * @param AbstractDispatcher $dispatcher
      */
-    public function __construct(Dispatcher $dispatcher)
+    public function __construct(AbstractDispatcher $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }

@@ -2,43 +2,28 @@
 
 namespace components;
 
-use helpers\ArrayHelper;
 use helpers\StringHelper;
 
 /**
- * Class Dispatcher
+ * Class AbstractDispatcher
  * @package components
  */
-class Dispatcher
+abstract class AbstractDispatcher
 {
     /**
      * @var string
      */
-    private $rout;
+    protected $rout;
 
     /**
      * @var string
      */
-    private $controller;
+    protected $controller;
 
     /**
      * @var string
      */
-    private $action;
-
-    public function __construct()
-    {
-        $this->rout = trim($_SERVER['REQUEST_URI'], " \t\n\r\0\x0B/");
-        $parts = $this->prepareUrlToParts();
-
-        $defaultController = Config::get('defaults.controller', 'index');
-        $controllerPart = ArrayHelper::getValue($parts, 0, $defaultController);
-        $this->controller = $this->prepareControllerClassName($controllerPart);
-
-        $defaultAction = Config::get('defaults.action', 'index');
-        $actionPart = ArrayHelper::getValue($parts, 1, $defaultAction);
-        $this->action = $this->prepareActionFunctionName($actionPart);
-    }
+    protected $action;
 
     /**
      * @return string
@@ -59,7 +44,7 @@ class Dispatcher
     /**
      * @return array
      */
-    private function prepareUrlToParts()
+    protected function prepareUrlToParts()
     {
         $getParamsStart = strpos($this->rout, '?');
         if (false !== $getParamsStart) {
@@ -73,7 +58,7 @@ class Dispatcher
      * @param string $urlPart
      * @return string
      */
-    private function prepareControllerClassName($urlPart)
+    protected function prepareControllerClassName($urlPart)
     {
         $namespace = Config::get('controllersNamespace');
         $namespace = StringHelper::rtrim($namespace, '\\');
@@ -85,7 +70,7 @@ class Dispatcher
      * @param string $urlPart
      * @return string
      */
-    private function prepareActionFunctionName($urlPart)
+    protected function prepareActionFunctionName($urlPart)
     {
         return 'action' . StringHelper::camelize($urlPart);
     }
