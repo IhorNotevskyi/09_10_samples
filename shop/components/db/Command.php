@@ -104,12 +104,23 @@ abstract class Command
     public function execute()
     {
         $result = Application::getDb()->getConnection()->exec($this->build());
-        if (!$result) {
+        if (false === $result) {
             $error = Application::getDb()->getConnection()->errorInfo();
             $message = array_key_exists(2, $error) ? $error[2] : 'Undefinded DB error';
+
             throw new \Exception($message);
         }
 
         return $result;
+    }
+
+    /**
+     * @param mixed $value
+     * @return bool
+     */
+    protected function isNotString($value)
+    {
+        $notStrings = ['NULL'];
+        return is_numeric($value) || in_array($value, $notStrings);
     }
 }

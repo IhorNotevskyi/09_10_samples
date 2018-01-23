@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Category;
 use components\db\Query;
 
 /**
@@ -10,7 +11,17 @@ use components\db\Query;
  */
 class IndexController
 {
-    public function actionIndex()
+    public function actionActiveRecord()
+    {
+        $category = Category::findOne(14);
+        $category->load(['title' => 'Updated #14']);
+
+        $category->save();
+
+        var_dump($category);
+    }
+
+    public function actionSelect()
     {
         $builder = (new Query())->getBuilder(Query::SELECT);
 

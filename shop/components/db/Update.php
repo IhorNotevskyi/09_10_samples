@@ -36,7 +36,8 @@ class Update extends Command
         $sql = "UPDATE {$this->table} SET ";
         $fields = [];
         foreach ($this->fields as $fieldName => $value){
-            $preparedValue = is_int($value) ? $value : "'{$value}'";
+            $value = is_null($value) ? 'NULL' : $value;
+            $preparedValue = $this->isNotString($value) ? $value : "'{$value}'";
             $fields[] = "{$fieldName} = {$preparedValue}";
         }
         $sql .= implode(',', $fields);

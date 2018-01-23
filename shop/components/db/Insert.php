@@ -35,7 +35,8 @@ class Insert extends Command
         $values = [];
         $fields = implode(array_keys($this->fields), ',');
         foreach ($this->fields as $value){
-            $values[] = is_numeric($value) ? $value : "'{$value}'";
+            $value = is_null($value) ? 'NULL' : $value;
+            $values[] = $this->isNotString($value) ? $value : "'{$value}'";
         }
         $valuesString = implode($values, ',');
 
