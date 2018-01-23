@@ -17,7 +17,8 @@ class Query
 
     /**
      * @param string $command
-     * @return Command
+     * @throws InvalidArgumentException
+     * @return Command|Insert|Select|Update|Delete
      */
     public function getBuilder($command)
     {

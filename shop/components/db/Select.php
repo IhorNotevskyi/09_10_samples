@@ -22,26 +22,6 @@ class Select extends Command
     }
 
     /**
-     * @param string $table
-     * @return Select
-     */
-    public function from($table)
-    {
-        $this->table = $table;
-        return $this;
-    }
-
-    /**
-     * @param array $condition
-     * @return Select
-     */
-    public function where(array $condition)
-    {
-        $this->where[] = Condition::getCondition($condition);
-        return $this;
-    }
-
-    /**
      * @return string
      */
     function build()

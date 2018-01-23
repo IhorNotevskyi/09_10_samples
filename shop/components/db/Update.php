@@ -2,14 +2,49 @@
 
 namespace components\db;
 
+/**
+ * Class Update
+ * @package components\db
+ */
 class Update extends Command
 {
+    /**
+     * @param string $table
+     * @return Update
+     */
+    public function update($table)
+    {
+        $this->table = $table;
+        return $this;
+    }
+
+    /**
+     * @param array $fields
+     * @return Update
+     */
+    public function set(array $fields)
+    {
+        $this->fields = $fields;
+        return $this;
+    }
 
     /**
      * @return string
      */
-    function build()
+    public function build()
     {
-        return '';
+        $sql = "UPDATE {$this->table} SET ";
+        $fields = [];
+        foreach ($this->fields as $fieldName => $value){
+            $preparedValue = is_int($value) ? $value : "'{$value}'";
+            $fields[] = "{$fieldName} = {$preparedValue}";
+        }
+        $sql .= implode(',', $fields);
+
+        foreach ($this->where as $row) {
+            $sql .= " WHERE {$row}";
+        }
+
+        return $sql;
     }
 }

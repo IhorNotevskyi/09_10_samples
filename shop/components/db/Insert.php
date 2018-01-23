@@ -1,15 +1,45 @@
 <?php
-
 namespace components\db;
 
+/**
+ * Class Insert
+ * @package components\db
+ */
 class Insert extends Command
 {
+    /**
+     * @param array $fields
+     * @return Insert
+     */
+    public function insert(array $fields)
+    {
+        $this->fields = $fields;
+        return $this;
+    }
+
+    /**
+     * @param string $table
+     * @return Insert
+     */
+    public function into($table)
+    {
+        $this->table = $table;
+        return $this;
+    }
 
     /**
      * @return string
      */
-    function build()
+    public function build()
     {
-        return '';
+        $values = [];
+        $fields = implode(array_keys($this->fields), ',');
+        foreach ($this->fields as $value){
+            $values[] = is_numeric($value) ? $value : "'{$value}'";
+        }
+        $valuesString = implode($values, ',');
+
+        return "INSERT INTO {$this->table} ({$fields}) VALUES ({$valuesString})";
     }
+
 }
