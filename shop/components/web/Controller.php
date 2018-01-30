@@ -2,8 +2,6 @@
 
 namespace components\web;
 
-use exceptions\NotAuthorised;
-
 /**
  * Class Controller
  * @package components\web
@@ -15,6 +13,7 @@ class Controller extends \components\Controller
      */
     protected function getTemplate()
     {
+        Application::getTemplate()->setLayout('layouts/guest');
         return Application::getTemplate();
     }
 }

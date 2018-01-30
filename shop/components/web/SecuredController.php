@@ -14,4 +14,15 @@ class SecuredController extends Controller
     {
         throw new NotAuthorisedException();
     }
+
+    /**
+     * @return Template
+     */
+    public function getTemplate()
+    {
+        $template = parent::getTemplate();
+        $template->setLayout('layouts/main');
+
+        return $template;
+    }
 }

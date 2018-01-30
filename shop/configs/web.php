@@ -9,6 +9,5 @@ return [
         'action' => 'index'
     ],
     'viewsPath' =>  "{$baseDir}/views",
-    'loginPage' => 'user/login',
-    'errorPage' => 'index/error'
+    'loginPage' => '/guest/login',
 ];
