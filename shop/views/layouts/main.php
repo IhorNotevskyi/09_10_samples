@@ -1,7 +1,9 @@
 <?php
 
-$error = getFlash('error');
-$success = getFlash('success');
+use helpers\SessionHelper;
+
+$error = SessionHelper::getFlash('error');
+$success = SessionHelper::getFlash('success');
 
 ?>
 <!doctype html>
