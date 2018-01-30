@@ -11,6 +11,11 @@ use components\db\Query;
  */
 class IndexController
 {
+    public function actionIndex()
+    {
+        return 'Index/index';
+    }
+
     public function actionActiveRecord()
     {
         $category = Category::findOne(14);

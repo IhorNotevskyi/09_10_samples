@@ -13,6 +13,6 @@ class Application extends \components\Application
     public function run()
     {
         $dispatcher = new Dispatcher();
-        (new Router($dispatcher))->init();
+        return (new Router($dispatcher))->init();
     }
 }

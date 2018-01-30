@@ -9,4 +9,4 @@ $config = array_merge(
     require_once __DIR__ . '/../configs/main.php',
     require_once __DIR__ . '/../configs/web.php'
 );
-(new components\web\Application($config))->run();
+echo (new components\web\Application($config))->run();
