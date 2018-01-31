@@ -25,4 +25,12 @@ class Dispatcher extends AbstractDispatcher
         $actionPart = ArrayHelper::getValue($parts, 1, $defaultAction);
         $this->action = $this->prepareActionFunctionName($actionPart);
     }
+
+    /**
+     * @return array
+     */
+    public function getParams()
+    {
+        return [];
+    }
 }
