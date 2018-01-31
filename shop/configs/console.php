@@ -1,5 +1,11 @@
 <?php
 
+$baseDir = dirname(__DIR__);
+
 return [
-    'controllersNamespace' => 'console\controllers'
+    'controllersNamespace' => 'console\controllers',
+    'migrations' => [
+        'dir' => "{$baseDir}/console/migrations",
+        'namespace' => '\console\migrations'
+    ]
 ];

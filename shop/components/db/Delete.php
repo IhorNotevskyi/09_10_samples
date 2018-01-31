@@ -17,13 +17,14 @@ class Delete extends Command
     }
 
 
+    /**
+     * @return string
+     */
     public function build()
     {
-        $sql = "DELETE FROM {$this->table}";
-        foreach ($this->where as $row) {
-            $sql .= " WHERE {$row}";
-        }
-        $sql .=$this->limit;
+        $conditions = $this->conditions();
+        $sql = "DELETE FROM {$this->table}{$conditions}{$this->limit}";
+
          return $sql;
     }
 }

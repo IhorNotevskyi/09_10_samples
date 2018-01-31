@@ -20,6 +20,7 @@ class Autoload
 
     /**
      * Autoload constructor.
+     * @param string $baseDir
      * @param array $classesMap
      */
     public function __construct($baseDir, array $classesMap = [])

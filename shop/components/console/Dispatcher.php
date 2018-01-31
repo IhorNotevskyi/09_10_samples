@@ -15,6 +15,8 @@ class Dispatcher extends AbstractDispatcher
     public function __construct()
     {
         $this->rout = ArrayHelper::getValue($_SERVER['argv'], 1, '');
+        $this->params = array_slice($_SERVER['argv'], 2);
+
         $parts = $this->prepareUrlToParts();
 
         $defaultController = Config::get('defaults.controller', 'index');
@@ -24,5 +26,13 @@ class Dispatcher extends AbstractDispatcher
         $defaultAction = Config::get('defaults.action', 'index');
         $actionPart = ArrayHelper::getValue($parts, 1, $defaultAction);
         $this->action = $this->prepareActionFunctionName($actionPart);
+    }
+
+    /**
+     * @return array
+     */
+    public function getParams()
+    {
+        return $this->params;
     }
 }

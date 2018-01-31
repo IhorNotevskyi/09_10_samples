@@ -40,6 +40,6 @@ class Router
             throw new \Exception("Action can not be loaded");
         }
 
-        return $controllerObject->{$action}();
+        return call_user_func_array([$controllerObject, $action], $this->dispatcher->getParams());
     }
 }

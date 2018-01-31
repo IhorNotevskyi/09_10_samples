@@ -21,6 +21,11 @@ abstract class Command
     protected $table = null;
 
     /**
+     * @var
+     */
+    protected $whereDelimiter = 'AND';
+
+    /**
      * @var array
      */
     protected $where = [];
@@ -56,12 +61,43 @@ abstract class Command
     abstract function build();
 
     /**
-     * @param array $condition
+     * @param array $conditions
+     * @param string $delimiter
+     * @param string $variable
+     * @return $this
+     */
+    public function where(array $conditions, $delimiter = 'AND', $variable = 'where')
+    {
+        $this->whereDelimiter = $delimiter;
+
+        if (is_array(current($conditions))) {
+            foreach ($conditions as $condition) {
+                $this->{$variable}[] = Condition::getCondition($condition);
+            }
+        } else {
+            $this->{$variable}[] = Condition::getCondition($conditions);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param array $conditions
      * @return Command
      */
-    public function where(array $condition)
+    public function andWhere(array $conditions)
     {
-        $this->where[] = Condition::getCondition($condition);
+        $this->where($conditions, 'AND', 'andWhere');
+        return $this;
+    }
+
+    /**
+     * @param array $conditions
+     * @return Command
+     */
+    public function orWhere(array $conditions)
+    {
+        $this->where($conditions, 'OR', 'orWhere');
         return $this;
     }
 
@@ -93,8 +129,30 @@ abstract class Command
      */
     public function limit($amount)
     {
-        $this->limit = " LIMIT ". $amount;
+        $this->limit = " LIMIT {$amount}";
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    protected function conditions()
+    {
+        $conditions = '';
+
+        if (empty($this->where) && empty($this->andWhere) && empty($this->orWhere)) {
+            return $conditions;
+        }
+
+        $conditions .= implode(" {$this->whereDelimiter} ", $this->where);
+
+        $andDelimiter = $conditions && $this->andWhere ? ' AND ' : '';
+        $conditions .= $andDelimiter . implode(' AND ', $this->andWhere);
+
+        $orDelimiter = $conditions && $this->orWhere ? ' OR ' : '';
+        $conditions .= $orDelimiter . implode(' OR ', $this->orWhere);
+
+        return " WHERE {$conditions}";
     }
 
     /**

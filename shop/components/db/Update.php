@@ -40,11 +40,7 @@ class Update extends Command
             $preparedValue = $this->isNotString($value) ? $value : "'{$value}'";
             $fields[] = "{$fieldName} = {$preparedValue}";
         }
-        $sql .= implode(',', $fields);
-
-        foreach ($this->where as $row) {
-            $sql .= " WHERE {$row}";
-        }
+        $sql .= implode(',', $fields) . $this->conditions() . $this->limit;
 
         return $sql;
     }

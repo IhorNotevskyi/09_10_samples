@@ -10,9 +10,12 @@ use components\Router;
  */
 class Application extends \components\Application
 {
+    /**
+     * @return mixed
+     */
     public function run()
     {
         $dispatcher = new Dispatcher();
-        (new Router($dispatcher))->init();
+        return (new Router($dispatcher))->init();
     }
 }

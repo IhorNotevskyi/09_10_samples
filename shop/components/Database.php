@@ -51,6 +51,14 @@ class Database
     private $connection = null;
 
     /**
+     * @return string
+     */
+    public function getDataBaseName()
+    {
+        return $this->db;
+    }
+
+    /**
      * @return PDO
      */
     public function getConnection()

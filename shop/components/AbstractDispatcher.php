@@ -26,6 +26,11 @@ abstract class AbstractDispatcher
     protected $action;
 
     /**
+     * @var array
+     */
+    protected $params = [];
+
+    /**
      * @return string
      */
     public function getControllerClassName()
@@ -40,6 +45,11 @@ abstract class AbstractDispatcher
     {
         return $this->action;
     }
+
+    /**
+     * @return array
+     */
+    abstract public function getParams();
 
     /**
      * @return array

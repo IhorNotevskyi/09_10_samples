@@ -27,12 +27,8 @@ class Select extends Command
     function build()
     {
         $fields = implode(', ', $this->fields);
-        $sql = "SELECT {$fields} FROM {$this->table}";
-        foreach ($this->where as $row) {
-            $sql .= " WHERE {$row}";
-        }
-
-        return $sql;
+        $conditions = $this->conditions();
+        return "SELECT {$fields} FROM {$this->table}{$conditions}{$this->orderBy}{$this->limit}";
     }
 
     /**
@@ -53,11 +49,25 @@ class Select extends Command
     /**
      * @return array
      */
+    public function column()
+    {
+        return $this->execute()->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    /**
+     * @return array
+     */
     public function one()
     {
-        $query = $this->execute();
+        return $this->execute()->fetch(PDO::FETCH_ASSOC);
+    }
 
-        return $query->fetch(PDO::FETCH_ASSOC);
+    /**
+     * @return bool
+     */
+    public function exists()
+    {
+        return $this->execute()->rowCount() > 0;
     }
 
     /**
