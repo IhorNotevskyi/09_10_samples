@@ -1,13 +1,14 @@
 <?php
 
-namespace components\db;
+namespace components\db\events;
 
+use components\db\Command;
 use components\console\Application;
 use PDO;
 
 /**
  * Class Select
- * @package components\db
+ * @package components\db\events
  */
 class Select extends Command
 {

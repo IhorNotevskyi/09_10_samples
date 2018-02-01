@@ -15,7 +15,9 @@ class Migration extends Model
      */
     public function createTable($name, array $fields)
     {
-        return (new Query())->getBuilder(Query::CREATE_TABLE)->create($name)->fields($fields)->execute();
+        /** @var \components\db\events\CreateTable $query */
+        $query = (new Query())->getBuilder(Query::CREATE_TABLE);
+        return $query->create($name)->fields($fields)->execute();
     }
 
     /**
@@ -24,7 +26,97 @@ class Migration extends Model
      */
     public function dropTable($name)
     {
-        return (new Query())->getBuilder(Query::DROP_TABLE)->drop($name)->execute();
+        /** @var \components\db\events\DropTable $query */
+        $query = (new Query())->getBuilder(Query::DROP_TABLE);
+        return $query->drop($name)->execute();
+    }
+
+    /**
+     * @param string $table
+     * @param FieldType $column
+     * @param null|string $after
+     * @return int
+     */
+    public function addColumn($table, FieldType $column, $after = null)
+    {
+        /** @var \components\db\events\AddColumn $query */
+        $query = (new Query())->getBuilder(Query::ADD_COLUMN);
+        return $query->table($table)->column($column)->after($after)->execute();
+    }
+
+    /**
+     * @param string $table
+     * @param string $column
+     * @return int
+     */
+    public function dropColumn($table, $column)
+    {
+        /** @var \components\db\events\DropColumn $query */
+        $query = (new Query())->getBuilder(Query::DROP_COLUMN);
+        return $query->table($table)->column($column)->execute();
+    }
+
+    /**
+     * @param string $name
+     * @param string $table
+     * @param string $column
+     * @param string $refTable
+     * @param string $refColumn
+     * @param null|string $onUpdate
+     * @param null|string $onDelete
+     * @return int
+     */
+    public function addForeignKey($name, $table, $column, $refTable, $refColumn, $onUpdate = null, $onDelete = null)
+    {
+        /** @var \components\db\events\AddForeignKey $query */
+        $query = (new Query())->getBuilder(Query::ADD_FOREIGN_KEY);
+        return $query
+            ->key($name)
+            ->table($table)
+            ->column($column)
+            ->targetTable($refTable)
+            ->targetColumn($refColumn)
+            ->onUpdate($onUpdate)
+            ->onDelete($onDelete)
+            ->execute();
+    }
+
+    /**
+     * @param string $name
+     * @param string $table
+     * @return int
+     */
+    public function dropForeignKey($name, $table)
+    {
+        /** @var \components\db\events\DropForeignKey $query */
+        $query = (new Query())->getBuilder(Query::DROP_FOREIGN_KEY);
+        return $query->key($name)->table($table)->execute();
+    }
+
+    /**
+     * @param string $name
+     * @param string $table
+     * @param string $column
+     * @param bool $isUnique
+     * @return int
+     */
+    public function createIndex($name, $table, $column, $isUnique = false)
+    {
+        /** @var \components\db\events\CreateIndex $query */
+        $query = (new Query())->getBuilder(Query::CREATE_INDEX);
+        return $query->key($name)->table($table)->column($column)->unique($isUnique)->execute();
+    }
+
+    /**
+     * @param string $name
+     * @param string $table
+     * @return int
+     */
+    public function dropIndex($name, $table)
+    {
+        /** @var \components\db\events\DropIndex $query */
+        $query = (new Query())->getBuilder(Query::DROP_INDEX);
+        return $query->key($name)->table($table)->execute();
     }
 
     /**

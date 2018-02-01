@@ -1,10 +1,12 @@
 <?php
 
-namespace components\db;
+namespace components\db\events;
+
+use components\db\Command;
 
 /**
  * Class DropTable
- * @package components\db
+ * @package components\db\events
  */
 class DropTable extends Command
 {

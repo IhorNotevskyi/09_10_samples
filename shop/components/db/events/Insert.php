@@ -1,5 +1,8 @@
 <?php
-namespace components\db;
+
+namespace components\db\events;
+
+use components\db\Command;
 
 /**
  * Class Insert

@@ -1,10 +1,12 @@
 <?php
 
-namespace components\db;
+namespace components\db\events;
+
+use components\db\Command;
 
 /**
  * Class Delete
- * @package components\db
+ * @package components\db\events
  */
 class Delete extends Command
 {

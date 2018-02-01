@@ -1,10 +1,13 @@
 <?php
 
-namespace components\db;
+namespace components\db\events;
+
+use components\db\Command;
+use components\db\FieldType;
 
 /**
  * Class CreateTable
- * @package components\db
+ * @package components\db\events
  */
 class CreateTable extends Command
 {

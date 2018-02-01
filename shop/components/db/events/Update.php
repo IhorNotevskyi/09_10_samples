@@ -1,10 +1,12 @@
 <?php
 
-namespace components\db;
+namespace components\db\events;
+
+use components\db\Command;
 
 /**
  * Class Update
- * @package components\db
+ * @package components\db\events
  */
 class Update extends Command
 {
