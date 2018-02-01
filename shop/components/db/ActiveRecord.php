@@ -11,7 +11,7 @@ use PDO;
  * Class ActiveRecord
  * @package components\db
  */
-abstract class ActiveRecord
+abstract class ActiveRecord extends Model
 {
     /**
      * @var string
@@ -52,14 +52,52 @@ abstract class ActiveRecord
     }
 
     /**
-     * @param mixed $recordId
+     * @param array $conditions
+     * @return static[]
+     */
+    public static function findAll(array $conditions)
+    {
+        $query = self::find()->where($conditions);
+
+        $models = [];
+        foreach ($query->all() as $row) {
+            $model = new static();
+            $model->load($row);
+
+            $models[] = $model;
+        }
+
+        return $models;
+    }
+
+    /**
+     * @return events\Select
+     */
+    public static function find()
+    {
+        $table = (new static())->tableName();
+
+        /** @var \components\db\events\Select $query */
+        $query = (new Query())->getBuilder(Query::SELECT);
+        $query->select(['*'])->from($table);
+
+        return $query;
+    }
+
+    /**
+     * @param int|array $condition
      * @return static|null
      */
-    public static function findOne($recordId)
+    public static function findOne($condition)
     {
         $model = new static();
 
-        $data = $model->getRow($recordId);
+        if (is_array($condition)) {
+            $data = self::find()->where($condition)->one();
+        } else {
+            $data = $model->getRow($condition);
+        }
+
         if ($data) {
             $model->load($data);
             $model->isSelected = true;
@@ -75,11 +113,8 @@ abstract class ActiveRecord
      */
     private function getRow($recordId)
     {
-        /** @var Select $query */
-        $query = (new Query())->getBuilder(Query::SELECT)
-            ->select(['*'])
-            ->from($this->tableName())
-            ->where(['=', $this->primaryKey, $recordId]);
+        /** @var \components\db\events\Select $query */
+        $query = $this->select(['*'])->from($this->tableName())->where(['=', $this->primaryKey, $recordId]);
         return $query->one();
     }
 
@@ -89,9 +124,9 @@ abstract class ActiveRecord
     public function save()
     {
         if ($this->isNewRecord()) {
-            $result = $this->insert();
+            $result = $this->create();
         } else {
-            $result = $this->update();
+            $result = $this->refresh();
         }
 
         return $result;
@@ -100,17 +135,12 @@ abstract class ActiveRecord
     /**
      * @return bool|string
      */
-    private function insert()
+    private function create()
     {
-        $result = (bool)(new Query())
-            ->getBuilder(Query::INSERT)
-            ->insert($this->attributes)
-            ->into($this->tableName())
-            ->execute();
+        $result = $this->insert($this->tableName(), $this->attributes);
 
         if ($result) {
-            $lastId = Application::getDb()->getConnection()->lastInsertId();
-            $data = $this->getRow($lastId);
+            $data = $this->getRow($this->lastInsertId());
             $this->load($data);
 
             return true;
@@ -122,26 +152,21 @@ abstract class ActiveRecord
     /**
      * @return bool
      */
-    private function update()
+    private function refresh()
     {
-        return (bool)(new Query())
-            ->getBuilder(Query::UPDATE)
-            ->update($this->tableName())
-            ->set($this->attributes)
-            ->where(['=', $this->primaryKey, $this->attributes[$this->primaryKey]])
-            ->execute();
+        return (bool)$this->update(
+            $this->tableName(),
+            $this->attributes,
+            ['=', $this->primaryKey, $this->attributes[$this->primaryKey]]
+        );
     }
 
     /**
      * @return bool
      */
-    public function delete()
+    public function clear()
     {
-        $result = (bool)(new Query())
-            ->getBuilder(Query::DELETE)
-            ->from($this->tableName())
-            ->where(['=', $this->primaryKey, $this->attributes[$this->primaryKey]])
-            ->execute();
+        $result = $this->delete($this->tableName(), ['=', $this->primaryKey, $this->attributes[$this->primaryKey]]);
 
         if ($result) {
             $this->attributes = [];

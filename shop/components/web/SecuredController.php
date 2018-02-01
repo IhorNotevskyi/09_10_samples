@@ -3,6 +3,7 @@
 namespace components\web;
 
 use exceptions\NotAuthorisedException;
+use helpers\SessionHelper;
 
 /**
  * Class SecuredController
@@ -12,7 +13,9 @@ class SecuredController extends Controller
 {
     public function __construct()
     {
-        throw new NotAuthorisedException();
+        if (empty(SessionHelper::get('user'))) {
+            throw new NotAuthorisedException();
+        }
     }
 
     /**

@@ -8,6 +8,6 @@ return [
         'controller' => 'index',
         'action' => 'index'
     ],
-    'viewsPath' =>  "{$baseDir}/views",
-    'loginPage' => '/guest/login',
+    'viewsPath' =>  "{$baseDir}/app/views",
+    'loginPage' => '/guest/login'
 ];

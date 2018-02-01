@@ -37,14 +37,7 @@ class Select extends Command
      */
     public function all()
     {
-        $query = $this->execute();
-
-        $rows = [];
-        while($row = $query->fetch(PDO::FETCH_ASSOC)) {
-            $rows[] = $row;
-        }
-
-        return $rows;
+        return $this->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

@@ -26,10 +26,17 @@ class GuestController extends Controller
 
         if (empty($login) || empty($password)) {
             SessionHelper::addFlash('error', 'All fields are required');
-            ResponseHelper::redirect('/guest/registration');
+            ResponseHelper::redirect('/guest/login');
         }
 
-        $user = new User();
+        $user = User::findOne([['=', 'login', $login], ['=', 'password', md5($password)]]);
+        if (empty($user)) {
+            SessionHelper::addFlash('error', 'Login or password is incorrect');
+            ResponseHelper::redirect('/guest/login');
+        }
+
+        SessionHelper::set('user', $user);
+        ResponseHelper::redirect('/');
     }
 
     public function actionRegistration()
@@ -49,6 +56,7 @@ class GuestController extends Controller
 
         $user = new User();
         $user->load([
+            'name' => ArrayHelper::getValue($_POST, 'name'),
             'login' => $login,
             'password' => md5($password)
         ]);

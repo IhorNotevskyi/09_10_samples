@@ -10,6 +10,29 @@ class SessionHelper
 {
     /**
      * @param string $key
+     * @param mixed $value
+     */
+    public static function set($key, $value)
+    {
+        self::initSession();
+
+        $_SESSION[$key] = $value;
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    public static function get($key, $default = null)
+    {
+        self::initSession();
+
+        return ArrayHelper::getValue($_SESSION, $key, $default);
+    }
+
+    /**
+     * @param string $key
      * @param mixed $data
      */
     public static function addFlash($key, $data)
@@ -28,7 +51,7 @@ class SessionHelper
     {
         self::initSession();
 
-        $flash = ArrayHelper::getValue($_SESSION, $key);
+        $flash = ArrayHelper::getValue($_SESSION, "flashes.{$key}");
         if ($flash && $clearAfterAccess) {
             unset($_SESSION['flashes'][$key]);
         }

@@ -64,7 +64,7 @@ abstract class Command
      * @param array $conditions
      * @param string $delimiter
      * @param string $variable
-     * @return $this
+     * @return static
      */
     public function where(array $conditions, $delimiter = 'AND', $variable = 'where')
     {
