@@ -3,8 +3,8 @@
 namespace console\models;
 
 use components\console\Application;
+use components\db\events\Select;
 use components\db\Expression;
-use components\db\Select;
 
 /**
  * Class Migration

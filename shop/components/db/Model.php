@@ -25,6 +25,7 @@ class Model
      * @param string $table
      * @param array $fields
      * @return int
+     * @throws \Exception
      */
     public function insert($table, array $fields)
     {
@@ -38,6 +39,7 @@ class Model
      * @param array $fields
      * @param array $conditions
      * @return int
+     * @throws \Exception
      */
     public function update($table, array $fields, array $conditions)
     {
@@ -49,8 +51,9 @@ class Model
     /**
      * @param string $table
      * @param array $conditions
-     * @param null|int $limit
+     * @param null $limit
      * @return int
+     * @throws \Exception
      */
     public function delete($table, array $conditions = [], $limit = null)
     {

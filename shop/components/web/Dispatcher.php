@@ -31,6 +31,6 @@ class Dispatcher extends AbstractDispatcher
      */
     public function getParams()
     {
-        return [];
+        return $_GET;
     }
 }

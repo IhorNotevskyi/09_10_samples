@@ -28,4 +28,17 @@ class ArrayHelper
 
         return $array;
     }
+
+    /**
+     * @param array $array
+     * @param string $key
+     * @param mixed $value
+     * @param bool $pushIfNotExists
+     */
+    public static function replace(array &$array, $key, $value, $pushIfNotExists = false)
+    {
+        if (array_key_exists($key, $array) || $pushIfNotExists) {
+            $array[$key] = $value;
+        }
+    }
 }

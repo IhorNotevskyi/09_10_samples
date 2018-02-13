@@ -48,9 +48,15 @@ class GuestController extends Controller
     {
         $login = ArrayHelper::getValue($_POST, 'login');
         $password = ArrayHelper::getValue($_POST, 'password');
+        $repeatPassword = ArrayHelper::getValue($_POST, 'repeat_password');
 
-        if (empty($login) || empty($password)) {
+        if (empty($login) || empty($password) || empty($repeatPassword)) {
             SessionHelper::addFlash('error', 'All fields are required');
+            ResponseHelper::redirect('/guest/registration');
+        }
+
+        if ($password !== $repeatPassword) {
+            SessionHelper::addFlash('error', 'Passwords are not equals');
             ResponseHelper::redirect('/guest/registration');
         }
 

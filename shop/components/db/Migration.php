@@ -12,6 +12,7 @@ class Migration extends Model
      * @param string $name
      * @param array $fields
      * @return int
+     * @throws \Exception
      */
     public function createTable($name, array $fields)
     {
@@ -23,6 +24,7 @@ class Migration extends Model
     /**
      * @param string $name
      * @return int
+     * @throws \Exception
      */
     public function dropTable($name)
     {
@@ -34,8 +36,9 @@ class Migration extends Model
     /**
      * @param string $table
      * @param FieldType $column
-     * @param null|string $after
+     * @param null $after
      * @return int
+     * @throws \Exception
      */
     public function addColumn($table, FieldType $column, $after = null)
     {
@@ -48,6 +51,7 @@ class Migration extends Model
      * @param string $table
      * @param string $column
      * @return int
+     * @throws \Exception
      */
     public function dropColumn($table, $column)
     {
@@ -62,9 +66,10 @@ class Migration extends Model
      * @param string $column
      * @param string $refTable
      * @param string $refColumn
-     * @param null|string $onUpdate
-     * @param null|string $onDelete
+     * @param string|null $onUpdate
+     * @param string|null $onDelete
      * @return int
+     * @throws \Exception
      */
     public function addForeignKey($name, $table, $column, $refTable, $refColumn, $onUpdate = null, $onDelete = null)
     {
@@ -85,6 +90,7 @@ class Migration extends Model
      * @param string $name
      * @param string $table
      * @return int
+     * @throws \Exception
      */
     public function dropForeignKey($name, $table)
     {
@@ -99,6 +105,7 @@ class Migration extends Model
      * @param string $column
      * @param bool $isUnique
      * @return int
+     * @throws \Exception
      */
     public function createIndex($name, $table, $column, $isUnique = false)
     {
@@ -111,6 +118,7 @@ class Migration extends Model
      * @param string $name
      * @param string $table
      * @return int
+     * @throws \Exception
      */
     public function dropIndex($name, $table)
     {
