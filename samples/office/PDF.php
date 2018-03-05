@@ -11,10 +11,16 @@ use FPDF;
 class PDF
 {
     const PORTRAIT_ORIENTATION = 'P';
+
     const MILLIMETER_POINTS = 'mm';
+
     const A4_FORMAT = 'A4';
+
     const BROWSER_OUTPUT = 'I';
+    const FILE_OUTPUT = 'F';
+
     const ARIAL_FAMILY = 'Arial';
+
     const BOLD_TEXT = 'B';
 
     /**

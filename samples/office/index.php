@@ -14,4 +14,15 @@ $builder->Ln(10);
 $text = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.';
 $builder->Cell(100, 20, $text);
 
-$builder->Output("report.pdf", PDF::BROWSER_OUTPUT);
+$pdfTarget = __DIR__ . '/lorem.pdf';
+$builder->Output($pdfTarget, PDF::FILE_OUTPUT);
+
+$zip = new ZipArchive();
+$filename = __DIR__ . '/lorem.zip';
+
+if ($zip->open($filename, ZipArchive::CREATE) !== true) {
+    exit("File $filename can not be loaded");
+}
+
+$zip->addFile($pdfTarget, basename($pdfTarget));
+$zip->close();
