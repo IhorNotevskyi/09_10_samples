@@ -33,6 +33,12 @@ class Dispatcher extends AbstractDispatcher
      */
     public function getParams()
     {
-        return $this->params;
+        $params = [];
+        foreach ($this->params as $param) {
+            $parts = explode('=', $param);
+            $params[current($parts)] = end($parts);
+        }
+
+        return $params;
     }
 }

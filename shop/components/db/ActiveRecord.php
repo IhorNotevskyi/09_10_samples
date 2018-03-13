@@ -40,6 +40,15 @@ abstract class ActiveRecord extends Model
     }
 
     /**
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        return ArrayHelper::getValue($this->attributes, $name);
+    }
+
+    /**
      * @param array $data
      */
     public function load(array $data)

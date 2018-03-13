@@ -56,6 +56,11 @@ abstract class AbstractDispatcher
      */
     protected function prepareUrlToParts()
     {
+        $urlPrefix = Config::get('urlPrefix');
+        if ($urlPrefix && stripos($this->rout, $urlPrefix) === 0) {
+            $this->rout = substr($this->rout, strlen($urlPrefix));
+        }
+
         $getParamsStart = strpos($this->rout, '?');
         if (false !== $getParamsStart) {
             $this->rout = substr($this->rout, 0, $getParamsStart);
